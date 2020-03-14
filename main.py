@@ -1,10 +1,6 @@
 import get_data as gd
+from my_utils import *
 import os
-
-version_control = 'v0.1.0'
-version = f'K9 transform program.exe\nVersion: {version_control}\n'
-problem_message = ['We could not find your file, because the file do not exists or the path is wrong',
-                   'I do not understand your command']
 
 if __name__ == '__main__':
     print(version)
@@ -21,7 +17,7 @@ if __name__ == '__main__':
         input('Press any key to quit')
         quit()
 
-    print('Save and close all your excel workbooks before running program')
+    print('Save and close all your excel workbooks before running program\n')
 
     # ask user to run the program
     while True:
