@@ -1,3 +1,4 @@
+import get_data as gd
 import os
 
 version_control = 'v0.1.0'
@@ -20,7 +21,7 @@ if __name__ == '__main__':
         input('Press any key to quit')
         quit()
 
-    print('Save all of your\'s excel workbooks...we need to close them')
+    print('Save and close all your excel workbooks before running program')
 
     # ask user to run the program
     while True:
@@ -28,10 +29,11 @@ if __name__ == '__main__':
         if run in ['n', 'no', 'ne']:
             quit()
         elif run in ['y', 'yes', 'ano', 'a']:
-            # kill excel app and all open workbooks
-            os.system('taskkill /IM excel.exe')
+            # run the program via breaking this loop
             break
         else:
             print(problem_message[1])
             input('Press any key to continue')
             print()
+
+    gd.get_file_arr(g_race_path)
