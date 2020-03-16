@@ -25,10 +25,22 @@ def get_file_arr(excel_file: str = None) -> list:
         input('\nPress any key to continue')
         quit()
     else:
-        file = open('setup_cols.txt', 'r+', encoding='utf-8')
-        if file.read() is None:
-            for param in set_cols_num:
-                file.write(f'{param}: ' + input('Set column index ("A" -> 1) for ' + param.upper() + ': ') + '\n')
-        elif file.read() is not None:
-            pass
-        file.close()
+        with open('setup_cols.txt', 'r', encoding='utf-8') as file:
+            if file.read() == '':
+                file.close()
+                with open('setup_cols.txt', 'w', encoding='utf-8') as file_2:
+                    for param in set_cols_num:
+                        file_2.write(f'{param}:' + input('Set column index ("A" -> 1) for '
+                                                         + param.upper() + ': ') + '\n')
+            elif file.read() is not None:
+                rewrite = input('Do you want to open settings for column\'s parameters (Y/N): ').lower()
+                file.close()
+                if rewrite in ['y', 'yes', 'ano', 'a']:
+                    with open('setup_cols.txt', 'w', encoding='utf-8') as file_2:
+                        for param in set_cols_num:
+                            file_2.write(f'{param}:' + input('Set column index ("A" -> 1) for '
+                                                             + param.upper() + ': ') + '\n')
+            else:
+                print('System error!\n'.upper())
+                input('Press any key to quit')
+                quit()
