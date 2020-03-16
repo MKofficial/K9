@@ -14,11 +14,13 @@ This module handle functions used in main.py program.
 
 Function open new workbook using library *openpyxl*.
 Handle some exceptions if the *excel_file* is not find or if there is another problem.
-Then it opens a file to fetch a data from. These data contain information about columns searchnig algorithm. 
+Then it opens a file to fetch a data from. These data contain information about columns searching algorithm. 
 
-#### setup_cols.txt
-> name: 1
-> team: 4
+*setup_cols.txt:*
+```
+name: 1
+team: 4
 time: 11
 distance: 5
 category: 6
+```
