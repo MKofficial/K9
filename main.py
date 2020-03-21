@@ -13,9 +13,7 @@ if __name__ == '__main__':
     elif g_race_path.find('/') != -1:
         g_race_file = g_race_path.split('/')[-1]
     else:
-        print('error\n'.upper() + f'You try to open \"{g_race_path}\"\n\n' + f'Problem: {problem_message[0]}')
-        input('Press any key to quit')
-        quit()
+        raise_error(g_race_path, problem_message[0])
 
     print('Save and close all your excel workbooks before running program\n')
 
