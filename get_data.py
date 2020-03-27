@@ -3,6 +3,7 @@ from openpyxl.utils.exceptions import InvalidFileException
 from my_utils import problem_message, set_cols_num, raise_error, dist_and_cat
 
 unfinished = ['DNF', 'DSQ', 'DNS']
+index = None
 
 
 def setup_columns(file_txt: str = 'setup_cols.txt') -> list:
@@ -69,6 +70,7 @@ def add_points(people: list = [], multiply: bool = False) -> list:
 def get_file_arr(excel_file: str = 'kuneticka_devitka.xlsx', distance: str = 'Dlouhý okruh - 9 km',
                  category: str = 'Muži 18 - 29 let', sixth_race: bool = False) -> list:
     """
+    :param sixth_race: If it is sixth race, then multiply the points in add_points() by 1.5
     :param excel_file: Excel file with the newest race's results
     :param category: Person's category
     :param distance: Person's distance
@@ -83,25 +85,37 @@ def get_file_arr(excel_file: str = 'kuneticka_devitka.xlsx', distance: str = 'Dl
     except FileNotFoundError:
         raise_error(excel_file, problem_message[0])
     else:
-        index = [i for i in setup_columns()]
 
-    people = [[ws[person.row][index[0]].value, ws[person.row][index[1]].value,
-               ws[person.row][index[2]].value, ws[person.row][index[3]].value,
-               ws[person.row][index[4]].value]
-              for i in ws.iter_rows(min_col=index[3] + 1, max_col=index[3] + 1) for person in i
-              if person.value == distance and ws[person.row][index[4]].value == category]
+        people = [[ws[person.row][index[0]].value, ws[person.row][index[1]].value,
+                   ws[person.row][index[2]].value, ws[person.row][index[3]].value,
+                   ws[person.row][index[4]].value]
+                  for i in ws.iter_rows(min_col=index[3] + 1, max_col=index[3] + 1) for person in i
+                  if person.value == distance and ws[person.row][index[4]].value == category]
 
     # add points to participates in each category
     add_points(people, sixth_race)
+
     return people
 
 
-def get_complete_file_arr(excel_file: str = 'kuneticka_devitka.xlsx') -> list:
+def get_complete_file_arr(excel_file: str = 'kuneticka_devitka.xlsx', sixth_race: bool = False) -> list:
     """
+    :param sixth_race: If it is sixth race then set last param in get_file_arr() to True
     :param excel_file: File with the race results
     :return: All participants of that race
     """
-    people = [cat_people for param in dist_and_cat for cat_people in get_file_arr(excel_file, param[0], param[1])]
+    global index
+    index = setup_columns('setup_cols.txt')
+
+    if sixth_race:
+        people = [cat_people for param in dist_and_cat for cat_people in
+                  get_file_arr(excel_file, param[0], param[1], sixth_race=True)]
+    elif sixth_race is False:
+        people = [cat_people for param in dist_and_cat for cat_people in
+                  get_file_arr(excel_file, param[0], param[1], sixth_race=False)]
+    else:
+        raise_error(message=problem_message[3])
+
     return people
 
 

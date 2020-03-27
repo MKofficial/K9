@@ -4,18 +4,10 @@ import os
 
 if __name__ == '__main__':
     print(version)
-    g_race_path = input('Type an absolute path to your file: ')
+    race_path = input('Type an absolute path to your file: ')
+    race_file = os.path.basename(race_path)
 
-    # search for slashes or backslashes in the path
-    # if there is not any, raise error
-    if g_race_path.find('\\') != -1:
-        g_race_file = g_race_path.split('\\')[-1]
-    elif g_race_path.find('/') != -1:
-        g_race_file = g_race_path.split('/')[-1]
-    else:
-        raise_error(g_race_path, problem_message[0])
-
-    print('Save and close all your excel workbooks before running program\n')
+    print('\nWarning!!!'.upper() + '\nSave and close all your excel workbooks before running program\n')
 
     # ask user to run the program
     while True:
@@ -30,4 +22,10 @@ if __name__ == '__main__':
             input('Press any key to continue')
             print()
 
-    gd.get_file_arr(g_race_path)
+    final_arr = gd.get_final_arr('final_table.xlsx')
+    if race_file[0] == '6':
+        complete_file_arr = gd.get_complete_file_arr(race_path, True)
+    else:
+        complete_file_arr = gd.get_complete_file_arr(race_path, False)
+
+print(complete_file_arr)
