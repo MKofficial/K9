@@ -1,4 +1,6 @@
 import get_data as gd
+import openpyxl as opx
+import styling as stl
 from my_utils import *
 import os
 
@@ -27,3 +29,9 @@ if __name__ == '__main__':
         complete_file_arr = gd.get_complete_file_arr(race_path, True)
     else:
         complete_file_arr = gd.get_complete_file_arr(race_path, False)
+
+    final_table_wb = opx.load_workbook('final_table.xlsx')
+    final_table_ws = final_table_wb.active
+
+    # styling
+    stl.style_and_save(final_table_wb, 'final_table.xlsx',stl.style_final_table(final_table_ws))
