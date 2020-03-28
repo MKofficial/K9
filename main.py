@@ -27,5 +27,3 @@ if __name__ == '__main__':
         complete_file_arr = gd.get_complete_file_arr(race_path, True)
     else:
         complete_file_arr = gd.get_complete_file_arr(race_path, False)
-
-print(complete_file_arr)
