@@ -1,5 +1,6 @@
 *.xlsx
-final_program_v7.py
+utils/final_program_v7.py
 .idea
-tests.py
-k9n.jpg
+utils/tests.py
+utils/k9n.jpg
+__pycache__/
