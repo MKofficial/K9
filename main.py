@@ -34,4 +34,4 @@ if __name__ == '__main__':
     final_table_ws = final_table_wb.active
 
     # styling
-    stl.style_and_save(final_table_wb, 'final_table.xlsx',stl.style_final_table(final_table_ws))
+    stl.style_and_save(final_table_wb, 'final_table.xlsx', stl.style_final_table(final_table_ws))
