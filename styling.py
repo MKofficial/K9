@@ -5,9 +5,18 @@ heading = ['Pořadí', 'Jméno a příjmení', 'Klub', 'Distance', 'Kategorie', 
            '12. závod', 'Body']
 
 
-def style_and_save(excel_workbook, excel_workbook_name, styling_function):
+def style_and_save(excel_workbook, excel_workbook_name, styling_function, excel_workbook_sheet):
+    """
+    :param excel_workbook: Workbook from openpyxl library
+    :param excel_workbook_name: Name of the the certain workbook
+    :param styling_function: Function that will style the table
+    :param excel_workbook_sheet: Workbook sheet from openpyxl library
+    :return: None
 
-    styling_function
+    This function apply the certain styling function to the current table and save it
+    """
+
+    styling_function(excel_workbook_sheet)
     excel_workbook.save(excel_workbook_name)
 
 
