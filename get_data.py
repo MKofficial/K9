@@ -96,9 +96,34 @@ def get_final_arr(excel_file: str = 'final_table.xlsx') -> list:
     except FileNotFoundError:
         raise_error(excel_file, problem_message[0])
     else:
-        if len(ws.column_dimensions) == 0:
+        if ws.max_column == 1:
             people = []
         else:
             people = [[person.value for person in element] for element in ws]
 
     return people
+
+
+def points_sum(array: list) -> list:
+    """
+    :param array: List containing people data
+
+    :return: List with sum of their points
+    """
+    for person in array:
+        person_points = []
+        for i in person[4:]:
+            if i == "-":
+                del person[person.index(i)]
+                person.append(0)
+            if i in unfinished:
+                person_points.append(0)
+            else:
+                person_points.append(i)
+        try:
+            person_points.sort(reverse=True)
+        except TypeError:
+            raise_error(message=problem_message[3])
+        person.append(sum(person_points[0:8]))
+
+    return array

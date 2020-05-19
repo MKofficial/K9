@@ -5,7 +5,7 @@ heading = ['Pořadí', 'Jméno a příjmení', 'Klub', 'Distance', 'Kategorie', 
            '12. závod', 'Body']
 
 
-def style_and_save(excel_workbook, excel_workbook_name, styling_function, excel_workbook_sheet):
+def style_and_save(excel_workbook, excel_workbook_name, excel_workbook_sheet, styling_function):
     """
     :param excel_workbook: Workbook from openpyxl library
     :param excel_workbook_name: Name of the the certain workbook
