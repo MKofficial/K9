@@ -21,14 +21,14 @@ def add_points(people: list = [], multiply: bool = False) -> list:
                 if person[2] == i:
                     person.append(i)
                     del person[2]
-        if points == 10:
-            points -= 1
-        if points <= 0:
+        elif points <= 0:
             person.append(0)
             del person[2]
         else:
             person.append(points)
             points -= 1
+            if points == 10:
+                points -= 1
             del person[2]
 
     return people
@@ -52,7 +52,6 @@ def get_file_arr(excel_file: str = 'kuneticka_devitka.xlsx', distance: str = 'Dl
     except FileNotFoundError:
         raise_error(excel_file, problem_message[0])
     else:
-
         people = [[ws[person.row][1].value, ws[person.row][4].value, ws[person.row][11].value,
                    ws[person.row][5].value, ws[person.row][6].value] for person in ws['F']
                   if person.value == distance and ws[person.row][6].value == category
@@ -113,10 +112,7 @@ def points_sum(array: list) -> list:
     for person in array:
         person_points = []
         for i in person[4:]:
-            if i == "-":
-                del person[person.index(i)]
-                person.append(0)
-            if i in unfinished:
+            if i == "-" or i in unfinished:
                 person_points.append(0)
             else:
                 person_points.append(i)

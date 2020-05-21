@@ -32,26 +32,20 @@ if __name__ == '__main__':
         race_data = gd.get_complete_file_arr(race_path, False)
 
     final_table_wb = opx.load_workbook('final_table.xlsx')
-    final_table_ws = final_table_wb["Raw data"]
-    final_table_ws_styled = final_table_wb["Styled"]
-    total_results = final_table_wb["Total Results"]
+    final_table_ws = final_table_wb.active
 
     # compare and save to final_table.xlsx
-    comp.compare_and_save(final_table_wb, 'final_table.xlsx', final_table_ws, comp.compare, race_data, complete_data,
+    comp.compare_and_save('final_table.xlsx',comp.compare, race_data, complete_data,
                           int(race_file[0]))
 
     # get complete data from races before and the race now
     complete_data = gd.get_final_arr('final_table.xlsx')
 
-    # styling final_table.xlsx
-    # stl.style_and_save(final_table_wb, 'final_table.xlsx', final_table_ws, stl.style_final_table)
-
     # add points
     complete_data = gd.points_sum(complete_data)
 
-    # save to styled final table
-    points = [[i[-1]] for i in complete_data]
-    for i in points:
-        final_table_ws_styled.append(i)
+    # save first styling to total results
+    # stl.style_and_save(final_table_wb, "final_table.xlsx", total_results, stl.style_final_table)
 
-    final_table_wb.save('final_table.xlsx')
+    # apply category headline to total results
+    stl.category_and_position("Total results.xlsx", complete_data, int(race_file[0]))

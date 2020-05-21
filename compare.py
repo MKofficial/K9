@@ -1,27 +1,25 @@
-
 from my_utils import *
+import openpyxl as opx
 
 
-def compare_and_save(excel_workbook, excel_workbook_name, excel_workbook_sheet, comparing_function,
-                     param1: list, param2: list, param3: int) -> None:
+def compare_and_save(excel_workbook_name, comparing_function, param1: list, param2: list, param3: int) -> None:
     """
     :param param3: Race_num
     :param param2: Complete_data_set
     :param param1: Race_data_set
-    :param excel_workbook: Workbook from openpyxl library
     :param excel_workbook_name: Name of the the certain workbook
-    :param excel_workbook_sheet: Workbook sheet form openpyxl library
     :param comparing_function: Function that will style the table
     :return: None
 
     This function apply the certain styling function to the current table and save it
     """
-
+    new_workbook = opx.Workbook()
+    new_sheet = new_workbook.active
     complete_data = comparing_function(param1, param2, param3)
     for i in complete_data:
-        excel_workbook_sheet.append(i)
+        new_sheet.append(i)
 
-    excel_workbook.save(excel_workbook_name)
+    new_workbook.save(excel_workbook_name)
 
 
 def compare(race_data_set: list = None, complete_data_set: list = None, race_num: int = 1) -> list:

@@ -5,14 +5,33 @@ problem_message = ['We could not find your file, because the file does not exist
                    'open as an excel sheet', 'System error']
 set_cols_num = ['name', 'team', 'time', 'distance', 'category']
 dist_and_cat = [['Dlouhý okruh - 9 km', 'Muži 18 - 29 let'], ['Dlouhý okruh - 9 km', 'Muži 30 - 39 let'],
-            ['Dlouhý okruh - 9 km', 'Muži 40 - 49 let'], ['Dlouhý okruh - 9 km', 'Muži 50 - 59 let'],
-            ['Dlouhý okruh - 9 km', 'Muži 60 - 69 let'], ['Dlouhý okruh - 9 km', 'Muži 70 +'],
-            ['Dlouhý okruh - 9 km', 'Ženy 18 - 29 let'], ['Dlouhý okruh - 9 km', 'Ženy B (30 - 39 let)'],
-            ['Dlouhý okruh - 9 km', 'Ženy 40 - 49 let'], ['Dlouhý okruh - 9 km', 'Ženy 50 +'],
-            ['Krátký okruh - 4,5 km', 'Žáci 6 - 10 let'], ['Krátký okruh - 4,5 km', 'Žáci 11 - 14 let'],
-            ['Krátký okruh - 4,5 km', 'Junioři 15 - 17 let'], ['Krátký okruh - 4,5 km', 'Muži 18 +'],
-            ['Krátký okruh - 4,5 km', 'Žákyně 6 - 10 let'], ['Krátký okruh - 4,5 km', 'Žákyně 11 - 14 let'],
-            ['Krátký okruh - 4,5 km', 'Juniorky 15 - 17 let'], ['Krátký okruh - 4,5 km', 'Ženy 18 +']]
+                ['Dlouhý okruh - 9 km', 'Muži 40 - 49 let'], ['Dlouhý okruh - 9 km', 'Muži 50 - 59 let'],
+                ['Dlouhý okruh - 9 km', 'Muži 60 - 69 let'], ['Dlouhý okruh - 9 km', 'Muži 70 +'],
+                ['Dlouhý okruh - 9 km', 'Ženy 18 - 29 let'], ['Dlouhý okruh - 9 km', 'Ženy B (30 - 39 let)'],
+                ['Dlouhý okruh - 9 km', 'Ženy 40 - 49 let'], ['Dlouhý okruh - 9 km', 'Ženy 50 +'],
+                ['Krátký okruh - 4,5 km', 'Žáci 6 - 10 let'], ['Krátký okruh - 4,5 km', 'Žáci 11 - 14 let'],
+                ['Krátký okruh - 4,5 km', 'Junioři 15 - 17 let'], ['Krátký okruh - 4,5 km', 'Muži 18 +'],
+                ['Krátký okruh - 4,5 km', 'Žákyně 6 - 10 let'], ['Krátký okruh - 4,5 km', 'Žákyně 11 - 14 let'],
+                ['Krátký okruh - 4,5 km', 'Juniorky 15 - 17 let'], ['Krátký okruh - 4,5 km', 'Ženy 18 +']]
+
+dist_and_cat_modified = [['Dlouhý okruh - 9 km', 'Muži A (18 - 29 let)'],
+                         ['Dlouhý okruh - 9 km', 'Muži B (30 - 39 let)'],
+                         ['Dlouhý okruh - 9 km', 'Muži C (40 - 49 let)'],
+                         ['Dlouhý okruh - 9 km', 'Muži D (50 - 59 let)'],
+                         ['Dlouhý okruh - 9 km', 'Muži E (60 - 69 let)'],
+                         ['Dlouhý okruh - 9 km', 'Muži F (nad 70 let)'],
+                         ['Dlouhý okruh - 9 km', 'Ženy A (18 - 29 let)'],
+                         ['Dlouhý okruh - 9 km', 'Ženy B (30 - 39 let)'],
+                         ['Dlouhý okruh - 9 km', 'Ženy C (40 - 49 let)'],
+                         ['Dlouhý okruh - 9 km', 'Ženy D (nad 50 let)'],
+                         ['Krátký okruh - 4,5 km', 'Mladší žáci (6 - 10 let)'],
+                         ['Krátký okruh - 4,5 km', 'Starší žáci (11 - 14 let)'],
+                         ['Krátký okruh - 4,5 km', 'Junioři (15 - 17 let)'],
+                         ['Krátký okruh - 4,5 km', 'Muži (nad 18 let)'],
+                         ['Krátký okruh - 4,5 km', 'Mladší žákyně (6 - 10 let)'],
+                         ['Krátký okruh - 4,5 km', 'Starší žákyně (11 - 14 let)'],
+                         ['Krátký okruh - 4,5 km', 'Juniorky (15 - 17 let)'],
+                         ['Krátký okruh - 4,5 km', 'Ženy (nad 18 let)']]
 
 
 def raise_error(file: str = '?unknown file?', message: str = 'No description of the error') -> None:
