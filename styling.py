@@ -1,5 +1,9 @@
 from my_utils import *
 from openpyxl.utils.exceptions import InvalidFileException
+from openpyxl.styles import PatternFill, Alignment
+from openpyxl.styles.fonts import Font
+from openpyxl.styles.borders import Border, Side
+from openpyxl.drawing.image import Image
 import openpyxl as opx
 
 heading = ['Pořadí', 'Jméno a příjmení', 'Klub', 'Distance', 'Kategorie', '1. závod', '2. závod', '3. závod',
@@ -85,6 +89,7 @@ def category_and_position(workbook_name, array: list, race_number: int) -> None:
                 i.insert(0, position)
             else:
                 i.insert(0, position)
+            # insert None to manage the sum of points into the right column
             for j in range(12 - race_number):
                 i.insert(-1, None)
 
@@ -96,6 +101,40 @@ def category_and_position(workbook_name, array: list, race_number: int) -> None:
 
         # styling headline of each category
         for i in sheet['A']:
-            ...
+            if i.value == 'Dlouhý okruh - 9 km' or i.value == 'Krátký okruh - 4,5 km':
+                for j in sheet[i.row]:
+                    j.fill = PatternFill(start_color='c0c0c0', end_color='c0c0c0', fill_type='solid')
+                    if j == "<Cell 'Sheet'.P" + str(sheet[i.row]) + ">":
+                        break
+
+        for i in sheet['B']:
+            for c in dist_and_cat:
+                if i.value == c[1]:
+                    sheet.cell(row=i.row, column=2, value=dist_and_cat_modified[dist_and_cat.index(c)][1])
+
+            if i.value == 'Mladší žáci (6 - 10 let)':
+                row = i.row + 1
+                sheet.insert_rows(i.row)
+                sheet.cell(row=i.row - 1, column=1, value='Malý okruh - 4 500 m')
+                sheet.insert_rows(i.row - 1)
+                # ws.merge_cells(f'A{row + 11}:C{row + 11}')
+                # color
+                for j in sheet[row]:
+                    j.fill = PatternFill(start_color='ccffcc', end_color='ccffcc', fill_type='solid')
+                    j.font = Font(name='Arial', size=15, color='FF0000', bold=True)
+                    if j == "<Cell 'Sheet'.P" + str(sheet[row]) + ">":
+                        break
+
+            if i.value == 'Muži A (18 - 29 let)':
+                sheet.insert_rows(i.row)
+                sheet.cell(row=i.row - 1, column=1, value='Hlavní závod - 8 800 m')
+                # ws.merge_cells(f'A{i.row - 1}:C{i.row - 1}')
+                # color
+                for j in sheet.iter_rows(min_row=i.row - 1, max_row=i.row - 1):
+                    for k in j:
+                        k.fill = PatternFill(start_color='ccffcc', end_color='ccffcc', fill_type='solid')
+                        k.font = Font(name='Arial', size=15, color='FF0000', bold=True)
+                        if k == "<Cell 'Sheet'.P" + str(sheet[i.row]) + ">":
+                            break
 
         workbook.save(workbook_name)
