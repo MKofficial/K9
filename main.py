@@ -49,3 +49,5 @@ if __name__ == '__main__':
 
     # apply category headline to total results
     stl.category_and_position("Total results.xlsx", complete_data, int(race_file[0]))
+    stl.gui_elimination_of_points("Total results.xlsx")
+    stl.color("Total results.xlsx")

@@ -3,7 +3,7 @@ version = f'K9 transform program.exe\nVersion: {version_control}\n'
 problem_message = ['We could not find your file, because the file does not exist or the path is wrong',
                    'I do not understand your command', 'We could not open your file, because the file can\'t be '
                    'open as an excel sheet', 'System error']
-set_cols_num = ['name', 'team', 'time', 'distance', 'category']
+unfinished = ["DNF", "DSQ", "DNS"]
 dist_and_cat = [['Dlouhý okruh - 9 km', 'Muži 18 - 29 let'], ['Dlouhý okruh - 9 km', 'Muži 30 - 39 let'],
                 ['Dlouhý okruh - 9 km', 'Muži 40 - 49 let'], ['Dlouhý okruh - 9 km', 'Muži 50 - 59 let'],
                 ['Dlouhý okruh - 9 km', 'Muži 60 - 69 let'], ['Dlouhý okruh - 9 km', 'Muži 70 +'],

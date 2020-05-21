@@ -99,42 +99,65 @@ def category_and_position(workbook_name, array: list, race_number: int) -> None:
         for i in temp:
             sheet.append(i)
 
-        # styling headline of each category
-        for i in sheet['A']:
-            if i.value == 'Dlouhý okruh - 9 km' or i.value == 'Krátký okruh - 4,5 km':
-                for j in sheet[i.row]:
-                    j.fill = PatternFill(start_color='c0c0c0', end_color='c0c0c0', fill_type='solid')
-                    if j == "<Cell 'Sheet'.P" + str(sheet[i.row]) + ">":
-                        break
-
-        for i in sheet['B']:
-            for c in dist_and_cat:
-                if i.value == c[1]:
-                    sheet.cell(row=i.row, column=2, value=dist_and_cat_modified[dist_and_cat.index(c)][1])
-
-            if i.value == 'Mladší žáci (6 - 10 let)':
-                row = i.row + 1
-                sheet.insert_rows(i.row)
-                sheet.cell(row=i.row - 1, column=1, value='Malý okruh - 4 500 m')
-                sheet.insert_rows(i.row - 1)
-                # ws.merge_cells(f'A{row + 11}:C{row + 11}')
-                # color
-                for j in sheet[row]:
-                    j.fill = PatternFill(start_color='ccffcc', end_color='ccffcc', fill_type='solid')
-                    j.font = Font(name='Arial', size=15, color='FF0000', bold=True)
-                    if j == "<Cell 'Sheet'.P" + str(sheet[row]) + ">":
-                        break
-
-            if i.value == 'Muži A (18 - 29 let)':
-                sheet.insert_rows(i.row)
-                sheet.cell(row=i.row - 1, column=1, value='Hlavní závod - 8 800 m')
-                # ws.merge_cells(f'A{i.row - 1}:C{i.row - 1}')
-                # color
-                for j in sheet.iter_rows(min_row=i.row - 1, max_row=i.row - 1):
-                    for k in j:
-                        k.fill = PatternFill(start_color='ccffcc', end_color='ccffcc', fill_type='solid')
-                        k.font = Font(name='Arial', size=15, color='FF0000', bold=True)
-                        if k == "<Cell 'Sheet'.P" + str(sheet[i.row]) + ">":
-                            break
-
         workbook.save(workbook_name)
+
+
+def gui_elimination_of_points(workbook_name: str) -> None:
+    """
+    :param workbook_name: Excel workbook name
+    :return: None
+    """
+
+    workbook = opx.load_workbook(workbook_name)
+    sheet = workbook.active
+
+    for i in sheet['A']:
+        if sheet[i.row][3].value is None or sheet[i.row][3].value == '1. závod':
+            continue
+        else:
+            none_counter = 0
+            position = [[3, sheet[i.row][3].value], [4, sheet[i.row][4].value], [5, sheet[i.row][5].value],
+                        [6, sheet[i.row][6].value], [7, sheet[i.row][7].value], [8, sheet[i.row][8].value],
+                        [9, sheet[i.row][9].value], [10, sheet[i.row][10].value], [11, sheet[i.row][11].value],
+                        [12, sheet[i.row][12].value], [13, sheet[i.row][13].value], [14, sheet[i.row][14].value]]
+
+            # TODO: adjust ->
+            for elements in position:
+                if elements[1] is None or elements[1] == '-' or elements[1] in unfinished:
+                    none_counter += 1
+            if none_counter < 4:
+                temp = []
+                for elements in position:
+                    if elements[1] != '-' and elements[1] is not None and elements[1] not in unfinished:
+                        temp.append(elements)
+                temp.sort(key=lambda x: x[-1])
+                cells = [temp[k] for k in range(4 - none_counter)]
+                for j in cells:
+                    sheet[i.row][j[0]].font = Font(color='c0c0c0', italic=True, strikethrough=True)
+
+    # setup font
+    for i in sheet:
+        for j in i:
+            j.font = Font(name='Arial', size=10)
+
+    workbook.save(workbook_name)
+
+
+def color(workbook_name: str) -> None:
+    """
+    :param workbook_name: Excel workbook name
+    :return: None
+    """
+
+    workbook = opx.load_workbook(workbook_name)
+    sheet = workbook.active
+
+    # styling headline of each category
+    for i in sheet['A']:
+        if i.value == 'Dlouhý okruh - 9 km' or i.value == 'Krátký okruh - 4,5 km':
+            for j in sheet[i.row]:
+                j.fill = PatternFill(start_color='c0c0c0', end_color='c0c0c0', fill_type='solid')
+                if j == "<Cell 'Sheet'.P" + str(sheet[i.row]) + ">":
+                    break
+
+    workbook.save(workbook_name)

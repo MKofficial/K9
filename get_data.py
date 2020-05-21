@@ -2,8 +2,6 @@ import openpyxl as opx
 from openpyxl.utils.exceptions import InvalidFileException
 from my_utils import *
 
-unfinished = ["DNF", "DSQ", "DNS"]
-
 
 def add_points(people: list = [], multiply: bool = False) -> list:
     """
